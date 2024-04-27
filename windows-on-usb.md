@@ -1,27 +1,27 @@
-#Putting Windows 10 on USB
+#  Windows 10 on USB Installation Guide
 I don't run Windows as my primary OS. There are times I need to use Windows. This is when there is an application that only runs in Windows, or when I need to test something in a Windows envrionment. However, I don't want a dual-boot machine.So installing Windows 10 on a USB drive is the best option for me. The problem is that the installation process for Windows 10 or Windows 11 does not support installing the operating system to a USB drive. We need to use a few tools to get us there.
 
 There are instructions on-line but I found I couldn't successfully follow them to a working solution. Additonally, I didn't really understand what was the purpose of some of the steps. I'm writing this so it makes it a bit more clear. As I said, I don't use Windows day-to-day. So in this guide, I'll be creating a Windows USB from a Linux environment.
 
-####Items
+#### Items
 - VirtualBox 7.x
 - Windows 10 or Windows 11 installation iso or media
 - Rufus
 - GParted
 - USB drive - preferably SSD
 
-####Assumptions
+#### Assumptions
 You have already installed VirtualBox in your Linux environment. Permissions have been set up for Virtualbox and the account you are using for running VirtualBox allow Virtualbox to control connected USB drives. The USB drive should be large enough to hold the Windows operating system. Refer to Microsoft's guidelines on the rewuirements of the operating system.
-###Creating a Virtual Machine With Windows 10 or Windows 11
-1. Start the graphical VirtualBox Manager. Click on the **Machine** menu, and from the drop-down, select **New** to create a new virtual machine. We are going to create our Windows instance we wanton the USB.
+### Creating a Virtual Machine With Windows 10 or Windows 11
+1. Start the graphical VirtualBox Manager. Click on the **Machine** menu, and from the drop-down, select **New** to create a new virtual machine. We are going to create our Windows instance we want on the USB as a virtual machine instance first.
 
 ![alt text](https://raw.githubusercontent.com/BandedHawk/windows-on-usb/master/images/virtualbox-manager.png "Create Instance")
 
-2. VirtualBox Manager will guide you through the instance creation process. Specify the name of the instance, where it will be stored and where the iso image for the Windows installation media. Check **Skip Unattended Installation** so you can manually configure the setup of the Windows environment during installation. I prefer this level of control of the initial installation of Windows.
+2. VirtualBox Manager will guide you through the instance creation process. Specify the name of the instance, where it will be stored and where the iso image for the Windows installation media. Check **Skip Unattended Installation** so you can manually configure the setup of the Windows environment during installation. I prefer this level of control over the initial installation of Windows.
 
 ![alt text](https://raw.githubusercontent.com/BandedHawk/windows-on-usb/master/images/create-instance.png "Define Instance Information")
 
-3. Next, define the memory to be allocated for the instance and the number of CPUs. This will only be for the purpose of running the installation of your Windows installation. When you move it to the USB and boot it properly, Windows will adjust for the actual hardware of the machine you boot it from. Make sure to allocate enough memory and CPU resources so the Windows installation runs adequately. Enable EFI otherwise you will have trouble, particularly for Windows 11 which requires EFI for security.
+3. Next, define the memory to be allocated for the instance and the number of CPUs. This will only be for the purpose of running the installation of your Windows installation. When you move it to the USB and boot it properly, Windows will adjust for the actual hardware of the machine you boot it from. Make sure to allocate enough memory and CPU resources so the Windows installation runs adequately. Enable EFI otherwise you will have trouble, particularly for Windows 11 which requires additional space for EFI and recovery.
 
 ![alt text](https://raw.githubusercontent.com/BandedHawk/windows-on-usb/master/images/define-hardware.png "Define Hardware")
 
@@ -49,10 +49,10 @@ You have already installed VirtualBox in your Linux environment. Permissions hav
 
 10. Start the Windows instance in VirtualBox Manager.
 
-11. Once logged into Windows, download rufus from [rufus.ie](https://rufus.ie/en/). We will use this to write the image onto the USB drive.
+11. Once logged into Windows, download rufus from [rufus.ie](https://rufus.ie/en/). We will use this to write the image onto the USB drive. We are using rufus as it can create a bootable USB drive for Windows 11. Even if you are creating a Windows 10 bootable USB system, you won't be able to upgrade to Windows 11 unless you have GPT, EFI and otherwise meet the Microsoft Secure Boot requirements.
 
-12. Once the download is complete, run the rufus executable directly. Select the **List USB Hard Drives**. The USB drive should be selected automatically for the de, otherwise mally select the correct device. Select the image that you shared with the VirtualBox Windows instance. f the USB drive has been correctly configured, rufus should recognise the device has a GTP partition scheme and the target system is UEFI. Do NOT uncheck **Quick format**. USB drives will take a very long time to format with rufus. Check that all the settings are similar to the example here. Click start to commence the image write process.
+12. Once the download is complete, run the rufus executable directly. Select the **List USB Hard Drives**. The USB drive should be selected automatically as the device after allowing USB drives to be listed, otherwise manually select the correct device. Select the image that you shared with the VirtualBox Windows instance. When the USB drive has been correctly configured, rufus should recognise the device has a GPT partition scheme and the target system is UEFI. Do NOT uncheck **Quick format**. USB drives will take a very long time to full format with rufus. Check that all the settings are similar to the example here. Click **START** to commence the image write process.
 
 ![alt text](https://raw.githubusercontent.com/BandedHawk/windows-on-usb/master/images/rufus.png "Rufus Settings")
 
-13. If everything goes well, the USB drive will have a working bootable version of Windows. Configure your system to boot from the USB drive, and you should have a working Windows environment. It may take a few reboots and updates for Windows to reconfigure itself for the actual hardware of the physical system.
+13. If everything goes well, the USB drive will have a working bootable version of Windows. Configure your system to boot from the USB drive, and the Windows environment should start. It may take a few reboots and updates for Windows to reconfigure itself for the actual hardware of the physical system.
