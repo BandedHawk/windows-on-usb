@@ -35,7 +35,7 @@ You have already installed VirtualBox in your Linux environment. Permissions hav
 
     `VBoxManage clonemedium --format RAW "Windows USB Install.vdi" windows-usb.img`
 
-7. We are going to prepare the USB drive for copying the image we have just created onto it. Plug in the USB drive into your Linux system. Start gparted, targeting that USB drive. Remove any partitions on the drive. We will create a new partition of type GPT. The GUID Partition Table (GPT) was introduced with EFI. Windows 11 in particular needs a boot disk with GPT.
+7. We are going to prepare the USB drive for copying the image we have just created onto it. Plug in the USB drive into your Linux system. Start gparted, targeting that USB drive. Remove any partitions on the drive. We will create a new partition table of type GPT. The GUID Partition Table (GPT) was introduced with EFI. Windows 11 in particular needs a boot disk with GPT. I recommend a fast SSD USB drive. That will ensure better Windows performance.
 
 ![alt text](https://raw.githubusercontent.com/BandedHawk/windows-on-usb/master/images/gparted.png "GParted Main Screen")
 
@@ -43,16 +43,16 @@ You have already installed VirtualBox in your Linux environment. Permissions hav
 
 ![alt text](https://raw.githubusercontent.com/BandedHawk/windows-on-usb/master/images/gparted-partition-table.png "GParted Create Partition Screen")
 
-9. Return to VirtualBox Manager. W are going to use the Windows instance to copy the Winows image to the USB drive. We need to make the USB drive available to the Windows instance. Right click on the instance in VirtualBox Manager and select **Settings** in the pop-up menu. Click on USB. lick on the **Add USB filter icon** and add the USB drive from the list that is displayed. Make sure the USB drive is plugged in before you do this.
+9. Return to VirtualBox Manager. We are going to use the Windows instance to copy the Winows image to the USB drive. We need to make the USB drive available to the Windows instance. Right click on the instance in VirtualBox Manager and select **Settings** in the pop-up menu. Click on USB. click on the **Add USB filter icon** and add the USB drive from the list that is displayed. Make sure the USB drive is plugged in before you do this.
 
 ![alt text](https://raw.githubusercontent.com/BandedHawk/windows-on-usb/master/images/virtualbox-usb-settings.png "VirtualBox USB Settings")
 
 10. Start the Windows instance in VirtualBox Manager.
 
-11. Once logged into Windows, download rufus from https://rufus.ie/en/. We will use this to write the image onto the USB drive.
+11. Once logged into Windows, download rufus from [rufus.ie](https://rufus.ie/en/). We will use this to write the image onto the USB drive.
 
 12. Once the download is complete, run the rufus executable directly. Select the **List USB Hard Drives**. The USB drive should be selected automatically for the de, otherwise mally select the correct device. Select the image that you shared with the VirtualBox Windows instance. f the USB drive has been correctly configured, rufus should recognise the device has a GTP partition scheme and the target system is UEFI. Do NOT uncheck **Quick format**. USB drives will take a very long time to format with rufus. Check that all the settings are similar to the example here. Click start to commence the image write process.
 
 ![alt text](https://raw.githubusercontent.com/BandedHawk/windows-on-usb/master/images/rufus.png "Rufus Settings")
 
-13. If everything goes well, the USB drive will have a workgin bootable version of Windows. Configure your system to boot from the USB drive, and you should have a working Windows environment. It may take a few reboots and updates for Windows to reconfigure itself for the actual hardware of the physical system.
+13. If everything goes well, the USB drive will have a working bootable version of Windows. Configure your system to boot from the USB drive, and you should have a working Windows environment. It may take a few reboots and updates for Windows to reconfigure itself for the actual hardware of the physical system.
